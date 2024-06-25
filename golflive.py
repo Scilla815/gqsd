@@ -1,6 +1,6 @@
 import pandas as pd
 
-mapping = {
+rankToPointsMapping = {
     1: 500,
     2: 300,
     3: 190,
@@ -66,8 +66,12 @@ def processExcel(path):
 def addRanking(df):
     df.sort_values(by='Total Score', inplace=True)
     df = df.reset_index()
-    df["Rank"] = df.index + 1 
+    df["Rank"] = df.index + 1
+    df["FedEx Points"] = 0
+    df.loc[0, "FedEx Points"] = 500
     for i in range(1, len(df)):
         if df.loc[i, "Total Score"] == df.loc[i-1, "Total Score"]:
             df.loc[i, "Rank"] = df.loc[i-1, "Rank"]
+        if df.loc[i, "Rank"] in rankToPointsMapping:
+            df.loc[i, "FedEx Points"] = rankToPointsMapping[df.loc[i, "Rank"]]
     return df

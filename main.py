@@ -6,5 +6,7 @@ cred = credentials.Certificate("gqsd-91223-firebase-adminsdk-tqw24-12f3780010.js
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
-df = processExcel('data/match_score_1.xlsx')
-print(addRanking(df))
+df = processExcel('data/match_score_2.xlsx')
+df = addRanking(df)
+
+print(df)
