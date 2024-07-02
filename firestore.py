@@ -2,9 +2,10 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 import os
 import pandas as pd
+import config
 
 def initializeDatabaseClient():
-    cred = credentials.Certificate("gqsd-91223-firebase-adminsdk-tqw24-12f3780010.json")
+    cred = credentials.Certificate(config.CRED_PATH)
     firebase_admin.initialize_app(cred)
     db = firestore.client()
     return db
@@ -30,5 +31,5 @@ def generateCSV(db):
 
     df = pd.DataFrame(data)
     df = df.reindex(columns=["name", "runningYearlyTotal"])
-    csv_file_path = "output/output.csv"
+    csv_file_path = config.OUTPUT_PATH
     df.to_csv(csv_file_path, index=False)
