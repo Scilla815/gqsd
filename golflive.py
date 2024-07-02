@@ -59,7 +59,7 @@ def processExcel(path):
     # First two rows are titles and there's an extra row at the bottom we don't care about
     df = pd.read_excel(path)
     df = df.iloc[2:-1, [0, 21]]
-    df.rename(columns={'Unnamed: 21': 'Total Score'}, inplace=True)
+    df.columns = ['Names', 'Total Score']
     df['Total Score'] = df['Total Score'].astype(int)
     return df
 
