@@ -20,6 +20,6 @@ def addRanking(df):
     for i in range(1, len(df)):
         if df.loc[i, "Total Score"] == df.loc[i-1, "Total Score"]:
             df.loc[i, "Rank"] = df.loc[i-1, "Rank"]
-        if df.loc[i, "Rank"] in config.rankToPointsMapping:
+        if df.loc[i, "Rank"] in mappings.rankToPointsMapping:
             df.loc[i, "FedEx Points"] = mappings.rankToPointsMapping[df.loc[i, "Rank"]]
     return df
