@@ -1,5 +1,5 @@
 import pandas as pd
-import config
+import mappings
 
 def processExcel(path):
     # Unnamed: 21 - Difference from PAR... This is the 20th column
@@ -21,5 +21,5 @@ def addRanking(df):
         if df.loc[i, "Total Score"] == df.loc[i-1, "Total Score"]:
             df.loc[i, "Rank"] = df.loc[i-1, "Rank"]
         if df.loc[i, "Rank"] in config.rankToPointsMapping:
-            df.loc[i, "FedEx Points"] = config.rankToPointsMapping[df.loc[i, "Rank"]]
+            df.loc[i, "FedEx Points"] = mappings.rankToPointsMapping[df.loc[i, "Rank"]]
     return df
