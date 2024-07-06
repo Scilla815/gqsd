@@ -1,4 +1,4 @@
-from golflive import processExcel, addRanking
+from golflive import processExcel, addRanking, updateMemberships
 from firestore import initializeDatabaseClient, writeToFirestore, generateCSV
 import inquirer
 
@@ -21,7 +21,7 @@ def main():
                 df = addRanking(df)
                 writeToFirestore(db, df)
             case "Update Users":
-                return 1
+                updateMemberships(db)
             case "Generate CSV":
                 generateCSV(db)
             case "Exit":
@@ -30,4 +30,4 @@ def main():
                 print("Invalid Input. Please try again")
 
 if __name__ == "__main__":
-    print(main())
+    main()

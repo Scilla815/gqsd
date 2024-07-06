@@ -1,5 +1,6 @@
 import pandas as pd
 import mappings
+import config
 
 def processExcel(path):
     # Unnamed: 21 - Difference from PAR... This is the 20th column
@@ -23,3 +24,9 @@ def addRanking(df):
         if df.loc[i, "Rank"] in mappings.rankToPointsMapping:
             df.loc[i, "FedEx Points"] = mappings.rankToPointsMapping[df.loc[i, "Rank"]]
     return df
+
+def updateMemberships(db):
+    filePath = config.MEMBERS_PATH
+    df = pd.read_excel(filePath, sheet_name=None)
+    print(df.keys())
+    print(df)
