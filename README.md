@@ -36,7 +36,7 @@ Follow these steps to set up and run your app:
     2. *Update Users* - Reads information from the membership data and updates the status of golfers memberships
     3. *Generate CSV* - Takes the information from the database and extracts a CSV for ease of access via Google Sheets or Excel. Writes to output folder and overwrites existing output file
     4. *Exit* - Exits the app
-5. Future Goals
+5. **Future Goals**
     1. *Integrate with Front End* - Integrate this backend with the current GoDaddy front end.
     2. *Create Forms for Data Input* - Right now, the current method of obtaining data is very inconsistent in formatting and quality. If we create a form for golfers to submit information, it will ease development time.
     3. *More Granular Data for Tournaments* - Currently only tracking running yearly total. It would be beneficial to keep individual tournament results for players as well. Beneficial for both future development as well as ease of access for tournament data.
