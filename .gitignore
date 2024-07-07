@@ -73,3 +73,6 @@ dmypy.json
 
 # Windows files
 Thumbs.db
+
+# Secure files
+gqsd-91223-firebase-adminsdk-tqw24-12f3780010.json
