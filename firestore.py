@@ -1,7 +1,6 @@
 import firebase_admin
 from firebase_admin import credentials, firestore
 from datetime import datetime, timedelta
-import os
 import pandas as pd
 import config
 

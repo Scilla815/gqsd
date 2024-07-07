@@ -1,3 +1,4 @@
 pandas
 inquirer
 firebase-admin
+openpyxl
