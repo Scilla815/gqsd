@@ -34,7 +34,7 @@ Follow these steps to set up and run your app:
     This will open up a menu which gives you options to choose from
     1. *Process Scores* - Takes in an input for tournament file name to be processed and adds the scores to each players running yearly total
     2. *Update Users* - Reads information from the membership data and updates the status of golfers memberships
-    3. *Generate CSV* - Takes the information from the database and extracts a CSV for ease of access via Google Sheets or Excel
+    3. *Generate CSV* - Takes the information from the database and extracts a CSV for ease of access via Google Sheets or Excel. Writes to output folder and overwrites existing output file
     4. *Exit* - Exits the app
 5. Future Goals
     1. *Integrate with Front End* - Integrate this backend with the current GoDaddy front end.
