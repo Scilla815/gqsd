@@ -1,5 +1,5 @@
 from golflive import processExcel, addRanking, updateMemberships
-from firestore import initializeDatabaseClient, writeToFirestore, generateCSV
+from firestore import initializeDatabaseClient, writeToFirestore, updateUserMembership, generateCSV
 import inquirer
 
 def main():
@@ -21,7 +21,8 @@ def main():
                 df = addRanking(df)
                 writeToFirestore(db, df)
             case "Update Users":
-                updateMemberships(db)
+                membershipDict = updateMemberships()
+                updateUserMembership(db, membershipDict)
             case "Generate CSV":
                 generateCSV(db)
             case "Exit":

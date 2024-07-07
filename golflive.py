@@ -25,8 +25,33 @@ def addRanking(df):
             df.loc[i, "FedEx Points"] = mappings.rankToPointsMapping[df.loc[i, "Rank"]]
     return df
 
-def updateMemberships(db):
+def updateMemberships():
     filePath = config.MEMBERS_PATH
     df = pd.read_excel(filePath, sheet_name=None)
-    print(df.keys())
-    print(df)
+    nicknameMapping = createNicknameMapping()
+    membershipStatusDict = {}
+    for sheet in df.keys():
+        if sheet != "Mappings":
+            for index, row in df[sheet].iterrows():
+                if row["Member Fee"] and not pd.isna(row["Member Fee"]):
+                    if row["Name"] in nicknameMapping:
+                        membershipStatusDict[nicknameMapping[row["Name"]]] = sheet
+                    else:
+                        membershipStatusDict[row["Name"]] = sheet
+    return membershipStatusDict
+
+def createNicknameMapping():
+    filePath = config.MEMBERS_PATH
+    mapping_dict = {}
+    df = pd.read_excel(filePath, sheet_name="Mappings")
+
+    for index, row in df.iterrows():
+        # The first element in the row is the key
+        name = row[0]
+        # The rest of the row (excluding NaN values) is the value
+        nicknames = row[1:].dropna().tolist()
+        # Add the key-value pair to the dictionary
+        for nickname in nicknames:
+            mapping_dict[nickname] = name
+
+    return mapping_dict
