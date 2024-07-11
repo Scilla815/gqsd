@@ -24,7 +24,8 @@ def main():
                 membershipDict = updateMemberships()
                 updateUserMembership(db, membershipDict)
             case "Generate CSV":
-                generateCSV(db)
+                fileType = input("csv or xlsx? ")
+                generateCSV(db, fileType)
             case "Exit":
                 return
             case _:

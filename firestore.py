@@ -32,7 +32,7 @@ def updateUserMembership(db, statusDict):
             }
             user_ref.set(data, merge=True)
 
-def generateCSV(db):
+def generateCSV(db, fileType):
     collection_ref = db.collection("users")
     docs = collection_ref.stream()
 
@@ -44,5 +44,13 @@ def generateCSV(db):
 
     df = pd.DataFrame(data)
     df = df.reindex(columns=["name", "runningYearlyTotal", "isActive", "last_paid"])
-    csv_file_path = config.OUTPUT_PATH
-    df.to_csv(csv_file_path, index=False)
+    match fileType:
+        case "csv":
+            csv_file_path = config.OUTPUT_PATH + ".csv"
+            df.to_csv(csv_file_path, index=False)
+        case "xlsx":
+            df["last_paid"] = df["last_paid"].dt.tz_convert(None)
+            xlsx_file_path = config.OUTPUT_PATH + ".xlsx"
+            df.to_excel(xlsx_file_path, index=False)
+        case _:
+            return "Invalid file type"
