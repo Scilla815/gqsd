@@ -10,6 +10,11 @@ def processExcel(path):
     df = df.iloc[2:-1, [0, 21]]
     df.columns = ['Names', 'Total Score']
     df['Total Score'] = df['Total Score'].astype(int)
+    df = df.reset_index(drop=True)
+    nicknameMapping = createNicknameMapping()
+    for index, row in df.iterrows():
+        if row["Names"] in nicknameMapping:
+            df.iloc[index, df.columns.get_loc('Names')] = nicknameMapping[row["Names"]]
     return df
 
 def addRanking(df):
@@ -21,8 +26,8 @@ def addRanking(df):
     for i in range(1, len(df)):
         if df.loc[i, "Total Score"] == df.loc[i-1, "Total Score"]:
             df.loc[i, "Rank"] = df.loc[i-1, "Rank"]
-        if df.loc[i, "Rank"] in mappings.rankToPointsMapping:
-            df.loc[i, "FedEx Points"] = mappings.rankToPointsMapping[df.loc[i, "Rank"]]
+        if df.loc[i, "Rank"] in mappings.FedExMapping:
+            df.loc[i, "FedEx Points"] = mappings.FedExMapping[df.loc[i, "Rank"]]
     return df
 
 def updateMemberships():
