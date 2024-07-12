@@ -54,3 +54,6 @@ def generateCSV(db, fileType):
             df.to_excel(xlsx_file_path, index=False)
         case _:
             return "Invalid file type"
+
+def deleteUsers(db):
+    return
