@@ -1,6 +1,7 @@
 from golflive import processExcel, addRanking, updateMemberships
 from firestore import initializeDatabaseClient, writeToFirestore, updateUserMembership, generateCSV, deleteUsers
 import inquirer
+import os
 
 def main():
     db = initializeDatabaseClient()
@@ -18,13 +19,15 @@ def main():
             case "Process Scores":
                 filename = input("Which match do you want to process? (Use 'All' to process all matches) ")
                 if filename == "All":
-                    df = processExcel("data/" + filename)
+                    df = processExcel("data/match_scores" + filename)
                     df = addRanking(df)
                     writeToFirestore(db, df)
                 else:
-                    df = processExcel("data/" + filename)
-                    df = addRanking(df)
-                    writeToFirestore(db, df)
+                    folder_path = "data/match_scores"
+                    for filename in os.listdir(folder_path):
+                        df = processExcel(folder_path + filename)
+                        df = addRanking(df)
+                        writeToFirestore(db, df)
             case "Update Users":
                 membershipDict = updateMemberships()
                 updateUserMembership(db, membershipDict)
