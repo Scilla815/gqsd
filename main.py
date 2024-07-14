@@ -17,17 +17,18 @@ def main():
         userInput = answers["action"]
         match userInput:
             case "Process Scores":
-                filename = input("Which match do you want to process? (Use 'All' to process all matches) ")
+                filename = input("Which match do you want to process? (Use 'All' to process all matches): ")
                 if filename == "All":
-                    df = processExcel("data/match_scores" + filename)
-                    df = addRanking(df)
-                    writeToFirestore(db, df)
-                else:
-                    folder_path = "data/match_scores"
+                    folder_path = "data/match_scores/"
                     for filename in os.listdir(folder_path):
+                        print("Processing " + filename)
                         df = processExcel(folder_path + filename)
                         df = addRanking(df)
                         writeToFirestore(db, df)
+                else:
+                    df = processExcel("data/match_scores/" + filename)
+                    df = addRanking(df)
+                    writeToFirestore(db, df)
             case "Update Users":
                 membershipDict = updateMemberships()
                 updateUserMembership(db, membershipDict)
@@ -35,7 +36,7 @@ def main():
                 fileType = input("csv or xlsx? ")
                 generateCSV(db, fileType)
             case "Reset Database":
-                deleteUsers(db)
+                deleteUsers(db, "users")
             case "Exit":
                 return
             case _:

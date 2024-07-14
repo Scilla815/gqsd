@@ -55,5 +55,16 @@ def generateCSV(db, fileType):
         case _:
             return "Invalid file type"
 
-def deleteUsers(db):
-    return
+def deleteUsers(db, collection_name):
+    collection_ref = db.collection(collection_name)
+    docs = collection_ref.stream()
+
+    confirmation = input(f"Are you sure you want to delete {collection_name} collection? (Yes/No) ")
+
+    if confirmation == "Yes":
+        for doc in docs:
+            doc.reference.delete()
+
+        print(f"{collection_name} Deleted")
+
+    print("Deletion Cancelled")
